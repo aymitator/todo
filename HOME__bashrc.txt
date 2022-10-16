@@ -1,0 +1,38 @@
+
+
+
+
+
+#fact: your linux_5_with_xfce_live_os_for_your_laptop.iso burned into botable [bootable] media is shit, and therefore your bashrc file is shit, and therefore the minimalist bashrc file is 9,000,000% shit, and therefore this file is this.
+
+
+
+#recommended variables to set:
+export EDITOR=/usr/bin/vim                #00% optional
+export TZ=America/Los_Angeles             #100% optional
+ack="--color --group"                     #for less -R being piped through ack command (ack $ack search_this /etc/ | less -R #colored-grouped output)
+UINT64_MAX='18_446_744_073_709_551_615'   #for reference
+export bash1='/home/user/Documents/cheat-sheets/bash.1.txt'     #as shell reference 
+export d2share='/usr/local/share/diablo-2-tools/'               #versus typing the whole path ad nauseum
+export dict=/usr/share/dict/american-english-allascii           #because words are useful
+export words=$dict
+export dir_lorem_ipsum='/home/user/Documents/lorem-ipsum'       #as a file dumping ground
+export music='/home/user/Documents/mp3s'   #for convenience
+export mp3s=$music
+export cheatsheetsDir='/home/user/Documents/cheat-sheets'       #as Perl 5, PHP 7, Python 3 + Bash 5 reference via `grep -rF $cheatsheetsDir`
+export photos='/home/user/Documents/STATIC-photos'              #for convenience
+export pictures=$photos
+export videos='/home/user/Documents/STATIC-videos-saved'        #for convenience
+export screenshots='/home/user/Documents/screenshots'           #for convenience (ristretto $screenshots) plus for the program that auto-generates your screenshots
+export temp1='/home/user/Documents/temp'                        #for super-temporary file dumping ground
+export tmp1='/home/user/Documents/tmp'
+export temp2="$tmp1"
+export tmp2="$temp1"
+export TODOdir='/home/user/Documents/TODO'
+export txt_lorem_ipsum='/home/user/Documents/lorem-ipsum.1.txt'
+export url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
+export url_utf8_codes='https://www.compart.com/en/unicode/U'
+export url_wikipedia='https://en.wikipedia.org/wiki/Special:Search?search'
+export url_wiktionary='https://en.wiktionary.org/wiki'
+export weechat_logs='/home/user/.weechat/logs'
+export youtube='/home/user/Documents/youtube-downloads'

@@ -1,0 +1,73 @@
+#!/bin/bash
+
+die(){
+  echo "ERROR: $1"
+  exit 1
+}
+
+create-txt-dir-infrastructure(){
+  pushd "$html_dir"
+  find -type d -exec mkdir -p "../$txtdir/{}" \;
+  popd
+}
+
+
+html_dir="$1"
+[ -z "$html_dir" ] && die 'html-dir2txtdir.sh [a_directory]'
+[[ "$html_dir" =~ html ]] || die "your directory needs 'html' somewhere in its name"
+[[ "$html_dir" =~ ^[a-zA-Z0-9_\ -]+/?$ ]] || die "your html directory ($html_dir) needs to match /^[a-zA-Z0-9_\ -]+\/?$/"
+[ -d "$html_dir" ] || die "'$html_dir' is not a directory."
+html_file_count="$(find "$html_dir" -type f -name '*.html' | wc -l)"
+[ -z "$html_file_count" ] && die 'wtf1'
+[ "$html_file_count" -eq 0 ] && die 'there are no .html files in the directory'
+echo "found $html_file_count HTML files in '$html_dir'"
+txtdir="${html_dir/html/txt}"
+[ -d "$txtdir" ] && die "'$txtdir' already exists."
+mkdir "$txtdir"
+create-txt-dir-infrastructure
+unset txtdir
+
+
+while read html_file; do
+  echo perl 26_lines_of_code "$html_file"
+  { perl -e "$(</dev/stdin)" "$html_file"; } <<\EOF_PERLLL
+use warnings;
+use strict;
+
+if($#ARGV != 0){ die 'html2text [html_filename_whatever.txt]';}
+my $html_input_filename = $ARGV[0];
+if($html_input_filename !~ /[a-zA-Z0-9_\- ]+\.html$/){ die "your HTML file ($html_input_filename) needs to match /[a-zA-Z0-9_\\- ]+\\.html\$/"; }
+if( ! -f $html_input_filename){ die "'$html_input_filename' file does not exist"; }
+my $all_html_file_content = '';
+{
+  undef $/; #slurp mode
+  open(my ${htmlf}, "<$html_input_filename") or die $!;
+  $all_html_file_content = <$htmlf>;
+  close(${htmlf});
+  $htmlf = undef; 
+}
+
+my $txt_output_filename = $html_input_filename;
+$html_input_filename = undef;
+$txt_output_filename =~ s/html/txt/ or die 'shit1';
+$txt_output_filename =~ s/\.html$/.txt/ or die 'shit2';
+
+my $output_txt_file_content = $all_html_file_content;
+$all_html_file_content = undef;
+#TODO: I need to strip &[0-9]+; 7% sure
+$output_txt_file_content =~ s/<script.*?<\/script>//gs;
+$output_txt_file_content =~ s/<style.*?<\/style>//gs;
+$output_txt_file_content =~ s/<[^>]+>//gs;
+$output_txt_file_content =~ s/\n{2,}/\n/gs;
+$output_txt_file_content =~ s/&quot;/"/g;
+$output_txt_file_content =~ s/&gt;/>/g;
+$output_txt_file_content =~ s/&lt;/</g;
+$output_txt_file_content =~ s/&amp;/&/g;
+$output_txt_file_content =~ s/&nbsp;/ /g;
+$output_txt_file_content =~ s/^\s+//mg;
+open(my ${txtf}, ">$txt_output_filename") or die "$!\n$txt_output_filename";
+print ${txtf} $output_txt_file_content;
+close(${txtf});
+
+EOF_PERLLL
+done <<<"$(find "$html_dir" -type f -name '*.html')"

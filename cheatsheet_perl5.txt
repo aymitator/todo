@@ -1,0 +1,1002 @@
+exit 0
+
+#what's not here: continue{} block, OOP (mostly), threads, POD,
+#                 exporting subroutines (mostly), packages, debugging,
+#                 special variables (mostly), regular expressions (mostly).
+All fxns(printf,undef,Data::Dumper)
+Array/List fxns (@ARGV,grep,join,map,pop,push,reverse,shift,sort,splice,qw//,unshift,List::Util=shuffle)
+Directory fxns (mkdir,closedir,opendir,readdir,rewinddir,seekdir,telldir)
+Exception fxns ($@[eval error])
+Filesystem fxns (<>,$/[$RS],chdir,chmod,Cwd,eof,File::Copy,glob,link,open,read,readlink,rename,rmdir,seek,select,stat,symlink,sysread,syswrite,sysseek,tell,umask,unlink)
+Hash fxns (delete,each,exists,keys,values)
+Library fxns (Exporter)
+Misc fxns (``,__FILE__,__LINE__,__PACKAGE__,caller,die,eval,sleep,system,warn)
+OOP fxns (bless)
+String fxns (chomp,chop,chr,index,lc,length,oct,ord,rindex,split,sprintf,substr,uc,ucfirst)
+Variable fxns (defined,ref,scalar)
+Math fxns (**,abs,hex,int,oct,rand,sqrt,Math::Trig=:pi[pi])
+.
+.
+.
+use bignum;
+my $E = 2.71828182845904523536028747135266249775724709369995;   #ie. eulers constant
+my $PI = 3.14159265358979323846264338327950288419716939937510;  #ie. Math.PI
+#ie. used as a rating out of 10
+print($E * $PI);  # 8.539734222673567065463550869546574495034888535765069058183301465313634961757623215923859212676901245
+
+@My_favorite_perl_functions =
+[ defined, exists/delete, exit, grep, index, join/split, keys/values, map, open/binmode/close, pack/unpack, print, printf, push/pop/shift/unshift, read, sleep, sort, sprintf, substr, system, uc/lc, unlink, use, warn ]
+
+#XXX: this needs to get updated, get with the times
+#XXX: wtf does Cwd and POSIX offer?
+#XXX: can Temp create temp dirs too?
+@My_favorite_perl_modules =
+[ Cwd,
+  Data::Dumper,
+  File::Basename,
+        Copy,
+        Path,
+        Temp,
+  IO::File,
+  List::Util,
+  POSIX ]
+
+#---------------------------------------------------------------------------------
+
+# perl -C option means --the-[[:print:]]-and-therefore-character-matching-work-with-utf8-characters-from-STDIN-as-variable-through-perl-5-character-recognition-systems-that-is-regex-[[:print:]]-and-90%sure-split
+#and therefore, perfect:
+printf '\xC3\xB5' | perl -C -pe 's/([[:print:]])/"$1"/;' #"õ"
+#90% utf8/utf-8 is enabled by perl by default through shell locale
+
+#---------------------------------
+
+printf '\xC3\xB5' >~/my0xC3_B5__2byte_file.txt; perl -C -ne '$unicode_character_bytes_from_file = $_; $unicode_number_to_look_up_utf8_character = ord($_); printf "U+%04X\n", $unicode_number_to_look_up_utf8_character; exit 0;' <~/my0xC3*file.txt    #2-bytes as unicode character bytes from file to UTF-8 utf8 unicode character number, and therefore you can get all HTML entities for that character represented by those two bytes, and therefore ord() means unicodeBytesFromSTDINinputVariable2unicodeNumberToLookItUp()
+
+#paragraph fixing in bulk [in UTF-8] [by capitalizing the first letter of each paragraph]
+cat paragraphs-in-utf8.txt | perl -C -000 -pe '$_=ucfirst($_)' > fixed-paragraphs-in-utf8.txt
+
+use utf8;use open qw(:encoding(utf8) :std);   #the Perl 5 code in a script equivalent to executing Perl 5 code via '-e' with '/usr/bin/perl' with '-C'
+
+use charnames viacode;   #<-- UTF-8 useful Perl 5 standard libraries
+
+s/[^[:ascii:]]+//g; #strip 98% of all UTF-8 from $_ [100% STDIN?] variable
+
+#---------------------------------------------------------------------------------
+
+STDIN2STDOUT tr GNU/LINUX COMMAND 2 PERL EQUIVALENCE (where the tr character substitution used here is for rot13/unrot13 of English[-letters])
+echo Mormon | perl -pe 'BEGIN{undef $/;}chomp;y/N-ZA-Mn-za-m/A-Za-z/;'
+echo Mormon | tr N-ZA-Mn-za-m A-Za-z
+#---------------------------------------------------------------------------------
+
+uc = upper case [uppercase] string
+ucfirst = uppercase first-letter of string
+lc = lowercase string
+lcfirst = lowercase first-letter of string
+
+# file_is_readable?(); file_is_writeable?(); is_dir?(); is_folder?();
+# is_empty_file?(); is_nonempty_file?(); is_text_file?();
+# is_binary_file?(); is_regular_file?() [ie. not directory, tty]
+# file_exists?()
+perldoc -f -X
+
+# system() backtick `` operator
+perldoc perlop #look for 'qx'
+
+# <<EOF;
+#EOF
+perldoc perlop #look for 'here-doc'
+
+#unicode stuff-that-I-find-confusing
+perldoc perluniintro
+
+#---------------------------------------------------------------------------------
+
+#on windows 8.0 using powershell 3.0
+echo 'how are you today?' | \
+  perl -Mstrict -Mwarnings -ne '$_=join(\" \", unpack(\"U*\",$_));print'
+perldoc whatever > ~/whatever.txt #& then open it with notepad.
+
+#on windows 8.0 with Strawberry perl
+perl Makefile.PL; dmake; dmake test; dmake install
+
+#doing individual tests
+prove -vbl t/whatever.t
+
+#on GNU/Linux
+echo 'how are you today?' | \
+  perl -Mstrict -Mwarnings -ne '$_=join(" ", unpack("U*",$_));print'
+
+
+#-------------
+
+#                // m!! m## m'' m() m,, m// m{}  s!!! s### s''' s()() s,,, s/// s{}{} 
+#in bash sed you can use:     s!!!    s///    s,,,
+
+#s!!! is +2 when implemented with URLs [that have a lot of '/']
+
+#-------------
+
+
+
+
+my @a = ('abc', '123', 'blahblahblah', '32b');
+for(@a){
+  /^[a-z]/ or next;     #<--  'or' versus using if(){}
+  #XXX: process here
+}
+
+#-------------
+
+#count how many characters or a substring are in a string (eg. $a_line) from STDIN:
+echo '1,2,3,4,5,' | perl -ne '$count=0;while(/,/g){$count++;}print $count;' #5
+
+#--------------------------------------------------------------------
+
+#### FAQ #001) How can I sync STDERR with STDOUT correctly [so the messages output at the f***ing same time?
+
+binmode(STDOUT, ':unix');      #(copied from `perldoc -q flush`) (aka. [auto]fflush)
+                               #just put that at the top of your perl script.. TODO: is this even right?
+
+#### FAQ #002) What is boolean true/false? 0=false >0=true
+use warnings;
+use strict;
+whatever() or die 'yes this subroutine returned false'; #<--- this happens!
+sub whatever{
+  return 0;
+}
+
+#### FAQ #003) When is -Mutf8 or 'use utf8;' or 'BEGIN{use utf8;}' or -C or -C*  ever really needed when dealing with UTF8 STDIN, STDOUT, STDERR, binary-file-input, binary-file-output, text[?]-file-input, text[?]-file-output blahblahblah?
+  #FIXME I don't f***ing know
+
+#### FAQ #004) How do I get the filename/program-name of my executing perl script?
+(my $name_of_perl_script = $0) =~ s!.*/!!;
+
+
+#### FAQ #005) How do I reverse the letters of every word in my sentence [but the words remain in the same order]?
+#!/usr/bin/perl
+my $str = $ARGV[0] or die '';
+my @ar = split / /, $str;
+foreach my $i (0 .. $#ar){
+  print join('', reverse(split(//, $ar[$i])));
+  if($i < $#ar){print ' ';}
+}
+print "\n";
+
+#--------------------------------------------------------------------
+
+
+
+
+#slurp STDIN from `perl` in bash/sh[?] XXX: wtf does 777 mean?
+printf 'line 1\nline 2\n line 3' | perl -0777 -ne 'print "All in one string: ", $_; exit 0;'
+#same thing       undef $/ #means "soak up <STDIN> to stop at undef character ie. whatever [stop at STDIN_EOF [?]]"
+printf 'line 1\nline 2\n line 3' | perl -ne 'BEGIN{undef $/;} print "All in one string: ", $_; exit 0;'
+
+#remove empty lines
+s/\n{2,}/\n/g;
+
+#LUKS (password) passphrase-compatible characters (ie. printable <= 128ASCII (f*** you)
+perl -e 'for $n(1 .. 127){$c=chr($n);if($c =~ /^[[:print:]]$/){print "$n $c\t";}} print "\n\n\n";'
+
+#print _all_ of the ASCII table.
+perl -Mfeature=unicode_strings -e 'for $n(1 .. 255){$c=chr($n);if($c =~ /^[[:print:]]$/){print "$n $c\t";}} print "\n\n\n";' > latin1.txt && cat latin1.txt
+
+#find all of the perl PM (modules) that match $package_name
+find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$package_name*" -printf '%p ' 2>/dev/null
+
+#text editor all of the PM (modules) thats name _is_ $package_name
+$EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $package_name -printf '%p ' 2>/dev/null )
+
+widget #show perl/tk show-case that shows you all the cool things perl/Tk can do.
+
+perldoc perldiag #list ALL of the possible reasons a perl program/app could ever go wrong.
+
+#the -l chomp(<STDIN>) and auto-newline for the print
+#supposidly good for converting a filename to something better I hope..700%guess..
+#   who the f*** knows.
+echo -n 'NORMAL_   BACKSLASHED :-!@#$%^&*()~<>?:"{}[];,./+' | perl -l -ne 'print qq(\Q$_\E)'
+
+#auto-newline for print
+perl -e 'BEGIN{$\="\n";}print "Hello f***in world."'
+
+#^^^^^^^^^^^^^These following two are the samething: -l switch: SLURP [auto-chomp] the newlines, SLIP-IN a newline [auto-append-newline] [in/at-end-of print]
+printf 'line 1\nline 2\nline 3' | perl -lp
+printf 'line 1\nline 2\nline 3' | perl -p
+printf 'line 1\nline 2\nline 3' | perl -lne 'print $_'
+printf 'line 1\nline 2\nline 3' | perl -ne 'chomp($_);print "$_\n"'
+
+#assuming you have a SLURPed string of all STDIN and you want all regex matches!
+while(/\n\n(.*\n)Status\: installed.*\n/mg){    #/g for recursive and /m for '.' and '\s' DO_NOT_MATCH_NEWLINES 30% sure
+  print "match: $1\n";
+}
+
+escape_url_get() {
+  local $get="$1"
+  echo -n "$get" | sed -e 's/&/%26/g' -e 's/+/%2B/g' -e 's/ /+/g'
+}
+my $text = 'site:github.com imgur upload'
+my $url="https://www.google.com/search?q=$(escape_url_get "${text}")"
+
+$Is_MSWin32 = $^O eq 'MSWin32';
+$Is_VMS = $^O eq 'VMS';
+$Is_GNU_Linux = lc($^O) eq 'linux';
+$Is_OpenBSD = lc($^O) eq 'openbsd';
+
+my $running_noninteractively = !-t STDIN;
+
+#strip non-ASCII (ie. nonascii) characters from the filename stored in variable $1
+perl -pi~ -e 's/[^[:ascii:]]+//g' "$1"
+
+#detect non-ASCII characters from the filename stored in variable $1
+if(/[^[:ascii:]]/){print "found some non ascii";}
+if(/[[:ascii:]]/){print "found some ascii";}
+
+#convert binary scalar string to scalar integer value
+bin(): sub bin{return oct('0b' . $_[0])}
+
+See:
+sprintf('%b', 100) #1100100
+         %o        #144 (octal)
+         %x        #64 (hex)
+    unpack('C', chr(ord('r'))) #114
+bin(unpack('b*',chr(ord('r'))) #(01001110) -> 78
+
+ret_new_List_with_altered_returns{}: map{}
+filter_valid{}: grep{}
+
+redo next (ie. continue) last (ie. break)
+
+my $sz = 'A crazy horse named Joe.';
+if(my ($name) = $sz =~ m{A .* horse named ([^.]+)\.}){
+  say "Name: $1";
+  say "Name: $name";
+}
+#perldoc perlretut | perlreref | perlre | perlrequick | perlcheat
+
+#Precedence
+=pod
+  or
+  and
+  LIST ops
+  =
+  ?:
+  ..
+  ||  //
+  &&
+  |   ^
+  &
+  ==
+  <<  >>
+  +   -   .
+  *   /   %
+  =~
+  ~
+  **
+=cut
+#perldoc perlcheat, perldoc perlop
+
+sub callme1($){
+  print Dumper([@_]);
+  return '';
+}
+sub callme2{
+  print Dumper([@_]);
+  return '';
+}
+say callme1 1, 2, 3, 4, 5; #callme1 absorbs '1'
+say callme2 1, 2, 3, 4, 5; #callme2 absorbs all
+
+sub file_get_contents{
+  open(my $input, '<', $_[0]) or die $!;
+  my $str;
+  {
+    local $/;
+    $str = <$input>;
+  }
+  return $str;
+}
+
+sub explode{
+  my ($reg, $str) = @_;
+  return split /$reg/, $str;
+}
+
+sub implode{
+  my ($str, @ar) = @_;
+  return join $str, @ar;
+}
+
+my $s = '1|2|3|4|5|6';
+my @a = explode('\|', $s);
+$s = undef;
+print Dumper([@a]);
+my $s2 = implode('.', @a);
+print $s2;
+
+#$VAR1 = [
+#          '1',
+#          '2',
+#          '3',
+#          '4',
+#          '5',
+#          '6'
+#        ];
+#1.2.3.4.5.6
+#`perl -MData::Dumper explode-implode-example.pl`
+#</END_OF_EXPLODE_IMPLODE_STUFF>
+
+#TODO: perl really could use a file_get_contents() file_put_contents() feature subroutines.
+
+perl -ne 'BEGIN{@map = qw/areaid systemid netid/;} chomp; if ($_ !~ /^ /) { $dict = {router => $_}; push(@list, $dict); $n = 3; } else { $n--; $dict->{$map[$n]} = $_; } END { use Data::Dumper qw/Dumper/; print Dumper @list;}' <<'DATA'
+Paris
+ 00.0001
+ 0000.3090.6756
+ 00.0001.0000.3090.6756.00
+Berlin
+ 00.0001
+ 0000.3090.c7df
+ 00.0001.0000.3090.c7df.00
+London
+ 00.0001
+ 0000.0c0a.2c51
+ 00.0001.0000.0c0a.2c51.00
+Rome
+ 00.0001
+ 0000.0c0a.2aa9
+ 00.0001.0000.0c0a.2aa9.00
+Brussels
+ 00.0002
+ 0000.0c76.5b7c
+ 00.0002.0000.0c76.5b7c.00
+Amsterdam
+ 00.0002
+ 0000.0c04.dcc0
+ 00.0002.0000.0c04.dcc0.00
+DATA
+
+
+
+#-| is post. |- is pre.
+#:raw prevents '\n' being treated as '\r\n' on Windows/Win32/Win64
+use IO::Handle;
+open(my ${input}, '<', q!mydata.txt!) or die $!;
+open(my ${output}, '|-:raw', 'tail -10 | sort') or die $!;
+=pod
+my $all;
+{
+  local $/;
+  $all = <$input>;
+}
+=cut
+my $one_byte;
+{
+  local $/ = \1; #`perldoc perlvar` & look for INPUT_RECORD_SEPARATOR or $RS
+                 #newline by default.
+  $one_byte = <$input>;
+}
+seek ${input}, 0, 0; #bring it back to the beginning.
+${output}->autoflush(1);
+print ${output} @input_lines;
+exit; #same as 'exit 0'
+
+#get all files in PWD
+opendir(my $dirh, './');
+say for(readdir($dirh));
+
+# changes all values of @array to 'whatever'!!!
+my @array = (1,2,3);
+for my $i(@array){
+  $i = 'whatever';
+}
+
+my @array = qw{1 2 3 4 5 6 7 8 9 10 11 12 13 14 15};
+$_ *= 8 for (@array);
+say shift(@array) while(@array);
+
+chomp(@output = `command`);
+
+sub name_of_sub{
+  my $argument = shift // 'default'; #meaning: execute if undef
+  return $argument . ' is OK.';
+}
+print name_of_sub();
+
+use feature qw/say/;
+use feature 'say';
+use feature qw!say!;
+use feature qw'say';
+use feature qw{say};
+use feature qw(say);
+use feature qw#say#;
+my $n = 0b0100_1011_1001_0100_1110; #309582
+say $n;
+CORE::say $n;
+
+my @array = qw{1 2 3 4 5 6 7};
+m![23]! && say for(@array);
+
+#both of these are the same:
+my $s = undef;
+my $s;
+
+my $nTotalCounted = () = get_a_list_of_whatever();
+
+my %hash = (
+  hello=>'world',
+  world=>'cyman'
+);
+foreach my $key (keys %hash){
+  delete $hash{$key};
+}
+#is the same as...
+delete @hash{keys %hash};
+#is the same as...
+%hash = ();
+#is the same as...
+undef %hash;
+
+my ($hello, $again);
+my @world = (1);
+sub hello{
+  ($hello,$again) = @world;
+  print "undefined\n" if(!defined($again)); #true.
+}
+hello();
+
+my @array = (1,2,3);
+my $val;
+while(defined($val = shift(@array))){
+  print $val;
+}
+
+for(my $i=0; $i<3; $i++){
+  print $i, "\n"; #0, 1, 2
+  my $i = 8;
+}
+
+#works the same with hashes
+my @has_values = (1,2,3);
+my @no_values = ();
+if(@has_values){
+  print "Yes I know\n";
+}
+if(! @no_values){
+  print "Yes I know\n";
+}
+
+while(my ($key,$value) = each(%ENV)){
+  print "$key:$value\n";
+}
+
+local $@; #reset to undef
+eval{ die 'msg' };
+if(my $exception = $@){
+  chomp $exception;
+  say "exception caught: $exception"; #msg at test.pl line 7.
+}
+#$exception does not exist out here.
+
+#named locators!
+if( 'whatever' =~ /^(?<_found>[hatw]+)(?<_cool>[erv]+)/ ){
+  say $+{_found}, "\n", $+{_cool}; #what\never
+}
+
+            Read
+            v Write
+            v v Append only
+            v v   Create non-existing
+            v v     Clobber existing
+<           Y N N N N *
+>           N Y N Y Y * 
+>>          N Y Y Y N *
++<          Y Y N N N
++>          Y Y N Y Y
++>>         Y Y Y Y N
+
+#convert all characters to a list of numbers:
+unpack('U*', $mystring);
+
+#file test operators
+-r File is readable by effective uid/gid.
+-w File is writable by effective uid/gid.
+-x File is executable by effective uid/gid.
+-o File is owned by effective uid.
+-e File exists.
+-z File has zero size (is empty).
+-s File has nonzero size (returns size in bytes).
+-f File is a plain file.
+-d File is a directory.
+-l File is a symbolic link.
+-T File is a textfile.
+-B File is a binary file.
+
+#get a file list from STDIN :)))
+while (<>) {
+  chomp;
+  next unless -f $_; # ignore specials
+  #...
+}
+
+#an array with spaces for when qw// just isn't enough.
+my @array = split(/, /, q{My string which has multiples, And here another, and another, end});
+
+local $" = ', '; #is initially a space. Cannot/should-not be undef.
+my @array = qw/Berkeley OSU UofO Titanium-Oxide/;
+say "@array"; #Berkeley, OSU, UofO, Titanium-Oxide
+
+my $pos=-1;
+while( ($pos = index($string, $lookfor, $pos)) > -1){
+  print "Found @ $pos\n";
+  $pos++;
+}
+
+delete @{ $dungeon[$x][$y] }{'OCCUPIED','DAMP','CLOTH'};
+
+use IPC::Run 'run';
+my $stdin = "Input";
+my $exitstatus = run [ $command, @args ], \$stdin, \my $stdout, \my $stderr;
+
+my @options = ( \&name_of_this_sub1, \&name_of_this_sub2,
+  \&name_of_this_sub3 );
+print $options[rand @options]->(); #the float auto-converts to int
+sub name_of_this_sub1{ 'yes!' }
+sub name_of_this_sub2{ 'no!' }
+sub name_of_this_sub3{ 'maybe!' }
+
+my $i_am_done = 0;
+$_ = 0;
+until($i_am_done){ #this is cool
+  $_++;
+  $i_am_done = 1 if($_ > 5)
+}
+say;
+
+(?:) means don't capture.
+EG. (?:hello|world|end of days) 
+
+
+
+
+
+use feature 'say';
+$_ = '1 whatever 2';
+s/(\d+) (whateve)r (\d+)/$1*5 . " " . $2 . "r " . $3*25/e;  #eval/evaluation/extra-perl/execute in a substitution regex [regular expression]. Doing math in a regular expression string substitution.
+say; #5 whatever 50
+
+
+
+
+#print MATH_PI  Math.PI   constant to a surely 500-degree of accuracy
+perl -Mbignum=bpi -e 'print bpi(500)'
+
+#------------------------------------------------
+#SUPER USE EXHAUSTIVE LIST
+#------------------------------------------------
+use $compat_version;
+use $module;
+use 5.006;
+use 5.008;
+use 5.008001;
+use 5.009001;
+use 5.010001;
+use 5.014;
+use 5.8.0;
+use Algorithm::Diff qw ( sdiff );
+use App::Ack ();
+use App::Ack::ConfigLoader ();
+use App::Ack::File ();
+use App::Ack::Files ();
+use App::Ack::Filter ();
+use App::Ack::Filter::Collection ();
+use App::Ack::Filter::Default ();
+use App::Ack::Filter::Extension ();
+use App::Ack::Filter::FirstLineMatch ();
+use App::Ack::Filter::Inverse ();
+use App::Ack::Filter::Is ();
+use App::Ack::Filter::IsPath ();
+use App::Ack::Filter::Match ();
+use App::Cpan;
+use App::Prove;
+use AptPkg::Cache;
+use AptPkg::Config '$_config';
+use Archive::Cpio;
+use Archive::Tar;
+use Archive::Tar qw();
+use Archive::Zip;
+use autodie;
+use Autom4te::C4che;
+use Autom4te::ChannelDefs;
+use Autom4te::Channels;
+use Autom4te::Configure_ac;
+use Autom4te::FileUtils;
+use Autom4te::General;
+use Autom4te::XFile;
+use Automake::ChannelDefs;
+use Automake::Channels;
+use Automake::Condition qw/TRUE FALSE/;
+use Automake::Config;
+use Automake::Configure_ac;
+use Automake::DisjConditions;
+use Automake::FileUtils;
+use Automake::General;
+use Automake::Language;
+use Automake::Location;
+use Automake::Options;
+use Automake::Rule;
+use Automake::RuleDef;
+use Automake::VarDef;
+use Automake::Variable;
+use Automake::Wrap 'makefile_wrap';
+use Automake::XFile;
+use B;
+use Carp;
+use Config;
+use Config qw//;
+use constant AC_CANONICAL_BUILD => 1;
+use constant AC_CANONICAL_HOST => 2;
+use constant AC_CANONICAL_TARGET => 3;
+use constant ARCHDEP_MODULE => 8;
+use constant BIGENDIAN		=> "big-endian";
+use constant CLEAN => 1;
+use constant COMPILE_LIBTOOL => 1;
+use constant COMPILE_ORDINARY => 2;
+use constant DDR3_CLOCKED	=> 3;
+use constant DDR3_LOAD_REDUCED	=> 4;
+use constant DDR3_REGISTERED	=> 2;
+use constant DDR3_UNBUFFERED	=> 1;
+use constant DDR4_LOAD_REDUCED	=> 4;
+use constant DDR4_REGISTERED	=> 2;
+use constant DDR4_UNBUFFERED	=> 1;
+use constant DIST_CLEAN => 2;
+use constant FT_AUTOMAKE => 2;
+use constant FT_SYSTEM => 3;
+use constant FT_USER => 1;
+use constant I2C_TOOLS_VER	=> "4.2";
+use constant INTERNAL => new Automake::Location;
+use constant LANG_IGNORE => 0;
+use constant LANG_PROCESS => 1;
+use constant LANG_SUBDIR => 2;
+use constant LINE_PREFIX => ' ' . q{\\} . "\n ";
+use constant LITTLEENDIAN	=> "little-endian";
+use constant LOGFILE => 'rrsync.log';
+use constant MA_ANY_INCOMPATIBLE_TYPES => ~(PROGRAM | PM_MODULE);
+use constant MAINTAINER_CLEAN => 3;
+use constant MOSTLY_CLEAN => 0;
+use constant ONLYROOT	=> "Readable only by root";
+use constant Pack_ZIP_END_CENTRAL_HDR_SIG => pack("V", ZIP_END_CENTRAL_HDR_SIG);
+use constant PM_MODULE => 2;
+use constant PROCFS => 1;
+use constant PROGRAM => 1;
+use constant QUEUE_CONF_FILE => "conf file";
+use constant QUEUE_LOCATION => "location";
+use constant QUEUE_MESSAGE => "msg";
+use constant QUEUE_STRING => "string";
+use constant RSYNC => '/usr/bin/rsync';
+use constant SCAN_M4_DIRS_ERROR => 2;
+use constant SCAN_M4_DIRS_SILENT => 0;
+use constant SCAN_M4_DIRS_WARN => 1;
+use constant SYSFS => 2;
+use constant VERSION	=> "1.7";
+use constant XS_MODULE => 4;
+use constant ZIP64_ARCHIVE_EXTRA_SIG => 0x08064b50;
+use constant ZIP64_DIGITAL_SIGNATURE_SIG => 0x05054b50;
+use constant ZIP64_END_CENTRAL_LOC_HDR_SIG => 0x07064b50;
+use constant ZIP64_END_CENTRAL_REC_HDR_SIG => 0x06064b50;
+use constant ZIP_ARCHIVE_EXTRA_DATA_RECORD_SIG => 0x08064b50;
+use constant ZIP_CENTRAL_HDR_SIG => 0x02014b50;
+use constant ZIP_CM_BZIP2 => 12 ;
+use constant ZIP_CM_DEFLATE => 8 ;
+use constant ZIP_CM_IMPLODE => 6 ;
+use constant ZIP_CM_LZMA => 14 ;
+use constant ZIP_CM_PPMD => 98 ;
+use constant ZIP_CM_STORE => 0 ;
+use constant ZIP_DATA_HDR_SIG => 0x08074b50;
+use constant ZIP_END_CENTRAL_HDR_SIG => 0x06054b50;
+use constant ZIP_EXTRA_HEADER_SIZE => 2 ;
+use constant ZIP_EXTRA_MAX_SIZE => 0xFFFF ;
+use constant ZIP_EXTRA_SUBFIELD_ID_SIZE => 2 ;
+use constant ZIP_EXTRA_SUBFIELD_LEN_SIZE => 2 ;
+use constant ZIP_GP_FLAG_ENCRYPTED_MASK => (1 << 0) ;
+use constant ZIP_GP_FLAG_LANGUAGE_ENCODING => (1 << 11) ;
+use constant ZIP_GP_FLAG_LZMA_EOS_PRESENT => (1 << 1) ;
+use constant ZIP_GP_FLAG_PATCHED_MASK => (1 << 5) ;
+use constant ZIP_GP_FLAG_STREAMING_MASK => (1 << 3) ;
+use constant ZIP_GP_FLAG_STRONG_ENCRYPTED_MASK => (1 << 6) ;
+use constant ZIP_IFA_TEXT_MASK => 1;
+use constant ZIP_LOCAL_HDR_SIG => 0x04034b50;
+use CPAN::Version;
+use Cwd;
+use Cwd 'abs_path';
+use Cwd 'cwd';
+use Cwd qw{abs_path};
+use Cwd qw(abs_path cwd);
+use Cwd qw { cwd };
+use Cwd qw(getcwd abs_path);
+use Cwd qw(realpath);
+use Data::Dumper;
+use Data::Dumper; $Data::Dumper::Terse = 1; $Data::Dumper::Indent = 1;
+use Debconf::AutoSelect qw(:all);
+use Debconf::Client::ConfModule ();
+use Debconf::Config;
+use Debconf::Db;
+use Debconf::DbDriver;
+use Debconf::DbDriver::Backup;
+use Debconf::Gettext;
+use Debconf::Log qw{:all};
+use Debconf::Question;
+use Debconf::Template;
+use Debconf::Template::Transient;
+use Debian::Debhelper::Dh_Buildsystems;
+use Debian::Debhelper::Dh_Lib;
+use Debian::Debhelper::DH::SequenceState ();
+use Debian::Debhelper::Dh_Version;
+use Debian::Debhelper::Sequence;
+use Debian::Debhelper::SequencerUtil;
+use Debian::DictionariesCommon q(:all);
+use Debian::DictionariesCommon q(setuserdefault);
+use DebianLinux qw(image_stem image_list read_kernelimg_conf version_cmp);
+use DebianLinux qw(version_cmp image_list);
+use Digest::MD5;
+use Digest::SHA qw($errmsg);
+use Dpkg ();
+use Dpkg::Arch qw(get_build_arch get_host_arch debarch_eq);
+use Dpkg::Arch qw(get_host_arch);
+use Dpkg::Arch qw(get_host_arch debarch_eq debarch_is debarch_list_parse);
+use Dpkg::Arch qw(:getters :mappers debarch_eq debarch_is);
+use Dpkg::Arch qw(:operators);
+use Dpkg::Build::Env;
+use Dpkg::BuildFlags;
+use Dpkg::Build::Info qw(get_build_env_allowed);
+use Dpkg::BuildOptions;
+use Dpkg::BuildProfiles qw(get_build_profiles);
+use Dpkg::BuildProfiles qw(get_build_profiles set_build_profiles);
+use Dpkg::BuildProfiles qw(set_build_profiles);
+use Dpkg::Build::Types;
+use Dpkg::Changelog::Debian;
+use Dpkg::Changelog::Parse;
+use Dpkg::Checksums;
+use Dpkg::Compression;
+use Dpkg::Compression::FileHandle;
+use Dpkg::Conf;
+use Dpkg::Control;
+use Dpkg::Control::Fields;
+use Dpkg::Control::Info;
+use Dpkg::Control::Tests;
+use Dpkg::Deps;
+use Dpkg::Dist::Files;
+use Dpkg::ErrorHandling;
+use Dpkg::ErrorHandling qw(:DEFAULT report REPORT_STATUS);
+use Dpkg::File;
+use Dpkg::Getopt;
+use Dpkg::Gettext;
+use Dpkg::IPC;
+use Dpkg::Lock;
+use Dpkg::Package;
+use Dpkg::Path qw(check_files_are_the_same find_command);
+use Dpkg::Path qw(find_command);
+use Dpkg::Shlibs::Objdump;
+use Dpkg::Shlibs qw(find_library get_library_paths);
+use Dpkg::Shlibs qw(get_library_paths);
+use Dpkg::Shlibs::SymbolFile;
+use Dpkg::Source::Format;
+use Dpkg::Substvars;
+use Dpkg::Vars;
+use Dpkg::Vendor qw(get_current_vendor);
+use Dpkg::Vendor qw(get_current_vendor run_vendor_hook);
+use Dpkg::Vendor qw(get_vendor_dir get_vendor_info get_current_vendor);
+use Dpkg::Vendor qw(run_vendor_hook);
+use Dpkg::Version;
+use Encode ();
+use Encode ;
+use Encode;
+use Encode::Alias;
+use Encode::Guess;
+use Encode::Locale;
+use Encode qw(decode);
+use English;
+use Errno qw(ENOENT);
+use ExtUtils::Constant qw (WriteConstants WriteMakefileSnippet autoload);
+use ExtUtils::Installed;
+use ExtUtils::MakeMaker;
+use ExtUtils::MakeMaker qw(prompt);
+use ExtUtils::Packlist;
+use Fcntl;
+use Fcntl qw(:DEFAULT :seek);
+use Fcntl ":seek";
+use feature qw(state);
+use File::Basename;
+use File::Basename 'basename';
+use File::Basename;
+use File::Basename qw//;
+use File::Basename qw(basename dirname);
+use File::Basename qw(dirname);
+use File::Compare;
+use File::Copy;
+use File::Copy qw(copy move);
+use File::Find;
+use File::Find qw//;
+use File::Glob;
+use File::Glob ':glob';
+use File::Glob ':globally';
+use FileHandle;
+use File::Next ();
+use File::Path ();
+use File::Path;
+use File::Path qw(make_path);
+use File::Path qw(mkpath);
+use File::Path qw(mkpath rmtree);
+use File::Spec ();
+use File::Spec;
+use File::Spec::Functions qw(abs2rel);
+use File::Spec;
+use File::Spec qw//;
+use File::stat;
+use File::StripNondeterminism;
+use File::Temp;
+use File::Temp qw(tempdir);
+use File::Temp qw(tempfile);
+use File::Temp qw { tempfile tempdir };
+use File::Temp "tempdir";
+use File::Temp "tempfile";
+use File::Temp 'tempfile';
+use FindBin;
+use Getopt::Long;
+use Getopt::Long qw/:config gnu_getopt no_ignore_case/;
+use Getopt::Long qw(:config no_ignore_case);
+use Getopt::Long qw(:config posix_default bundling_values no_ignorecase);
+use Getopt::Long qw(GetOptions);
+use Getopt::Long qw(HelpMessage :config gnu_getopt no_ignore_case auto_help);
+use Getopt::Std;
+use HTTP::Date ();
+use HTTP::Date qw(time2str str2time);
+use HTTP::Status qw(status_message);
+use I18N::Langinfo qw(langinfo CODESET);
+use Image::ExifTool qw{:Public};
+use IO::File;
+use IO::Handle;
+use IO::Socket;
+use IPC::Open2;
+use IPC::Open3;
+use JSON::PP ();
+use lib qw( blib/lib lib );
+use lib Tk->findINC( 'demos/widget_lib' );
+use List::Util qw(any);
+use List::Util qw(any all none);
+use List::Util qw(any none);
+use List::Util qw/any none uniq/;
+use List::Util qw/maxstr/;
+use List::Util qw( min max );
+use List::Util qw(none);
+use List::Util qw/uniq/;
+use locale;
+use Locale::gettext;
+use LWP::MediaTypes qw(guess_media_type media_suffix);
+use LWP::Simple qw(mirror is_success status_message $ua);
+use LWP::UserAgent ();
+use MIME::Base64;
+use MIME::QuotedPrint;
+use Module::CoreList;
+use Net::DBus;
+use open qw/:utf8 :std/;
+use Pod::Checker;
+use Pod::Html;
+use Pod::Man ();
+use Pod::Perldoc;
+use Pod::Text ();
+use Pod::Usage;
+use Pod::Usage qw(pod2usage);
+use POSIX ();
+use POSIX;
+use POSIX qw(ceil);
+use POSIX qw(:errno_h :fcntl_h);
+use POSIX qw(:errno_h :locale_h);
+use POSIX qw(:fcntl_h :locale_h strftime);
+use POSIX qw(getcwd);
+use POSIX qw { strftime ceil};
+use POSIX qw(:sys_wait_h);
+use Regexp::Assemble;
+use Regexp::Common;
+use Scalar::Util qw(blessed);
+use SOAP::Lite;
+use Socket;
+use strict;
+use Test;
+use Test::More tests => $tests;
+use Text::Tabs;
+use Text::Tabs 'expand';
+use Text::Tabs qw { expand };
+use Text::Wrap;
+use Time::HiRes;
+use Time::HiRes qw(gettimeofday tv_interval);
+use Time::HiRes 'time';
+use Tk;
+use Tk 804.000;
+use Tk::Config ();
+use Tk::DragDrop qw(XDND Sun);
+use Tk::DropSite qw(XDND Sun);
+use Tk::JPEG;
+use Tk::widgets qw/ DialogBox ErrorDialog LabEntry ROText /;
+use Tk::widgets qw(TextUndo Scrollbar Menu Dialog);
+use URI ();
+use URI;
+use URI::Heuristic qw(uf_uri);
+use utf8;
+use v5.10;
+use v5.24;
+use vars '$VERSION';
+use vars qw/ $ALIGN $BRAKES $LIGHTS $OIL $SOBER $TRANS $WIPERS /;
+use vars qw($bus $address);
+use vars qw/ $CODE $CODE_RERUN $CODE_TEXT $VARS $VIEW $VIEW_TEXT /;
+use vars qw/ $COLOR $FONT_STYLE $POINT_SIZE $DEMO_FILE %DEMO_DESCRIPTION $XFT /;
+use vars qw($command $result);
+use vars qw ($config_h %verbatim %symbol);
+use vars qw($debug $chip %trans @delete %chip_trans %chip_delete $first_part $second_part $compute_next);
+use vars qw($escape $unescape);
+use vars qw($Inst @Modules);
+use vars qw/ $MW $FONT $BOLD_FONT $LARGE_FONT $MONOSPACE_FONT $WIDTRIB /;
+use vars qw($mw $st $t @hist $hist $list $isStartOfCommand);
+use vars qw($NAME $VERSION $FONT @FONT $WIN32 $HOME $HISTFILE $HISTSAVE $PROMPT $INITFILE);
+use vars qw($opt_d $opt_c $opt_h $opt_o $opt_i);
+use vars qw($opt_D $opt_d $opt_r $opt_l $opt_h $opt_a $opt_Q $opt_e);
+use vars qw($sysfs $found);
+use vars qw($u_init %u_last $u_cnt);
+use vars qw( $VERSION );
+use vars qw($VERSION);
+use vars qw($VERSION $portfile);
+use vars qw(@cfiles @makefiles @shfiles @subdirs %printed);
+use vars qw(%opt);
+use vars qw(%opts $filename $debug $error $checkonly $unseen);
+use vars qw(@standard_scales);
+use warnings ;
+use warnings;
+use warnings 'all';
+use warnings FATAL => 'all';
+use warnings qw(all);
+use WidgetDemo;
+use X11::Protocol;
+use XML::LibXML qw//;
+
+
+#------------------EXTRA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! using libaptpkg-perl API
+use AptPkg::Cache;
+my $package_name = 'kate';
+my $target_arch = 'amd64';
+my $cache = AptPkg::Cache->new();
+sub get_pkgname_depends_list{
+  my ($_pkgname) = @_;
+  if(!defined($_pkgname)){}
+  if(length($_pkgname) == 0){}
+  my $version_list = $cache->get($_pkgname)->{'VersionList'};
+  if(!defined($version_list)){}
+  if(scalar(@{$version_list}) == 0){}
+  my $dependencies = $version_list->[0]->{'DependsList'};
+  if(!defined($dependencies)){}
+  if(scalar(@{$dependencies}) == 0){}
+  return @{$dependencies};
+}
+my @dependencies = get_pkgname_depends_list($package_name);
+my @package_names = ($package_name);
+while(1){
+  $_ = shift(@dependencies) or last;
+  if($_->{'DepType'} ne 'Depends'){next;}
+  my $target_pkg = $_->{'TargetPkg'};
+  if($target_pkg->{'Arch'} ne $target_arch){next;}
+  if($target_pkg->{'CurrentState'} eq 'Installed'){next;}
+  push(@package_names, $target_pkg->{'Name'});
+  push(@dependencies, get_pkgname_depends_list($target_pkg->{'Name'}));
+}
+print 'apt download ', join(' ', uniq(sort(@package_names))), "\n"; #23% accurate output
+
+
+#------------------EXTRA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! processing </usr/share/applications/*.desktop> files
+binmode(STDOUT, ':unix');      #(copied from `perldoc -q flush`)
+my @desktop_files = </usr/share/applications/*.desktop>;
+for my $desktop_filename (@desktop_files){
+  open(my ${f}, "<$desktop_filename") or die $!;
+  while(<$f>){ chomp;
+    if(/^Exec=(.*)/){warn "$1";}      #warn/print-to-STDERR
+    elif(/^Icon=(.*)/){warn "$1";}
+  } 
+  close(${f}) or die $!;
+  print qq/hello, world\n/; #double-quotes-special
+}

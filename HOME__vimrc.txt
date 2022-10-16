@@ -1,0 +1,10 @@
+
+
+
+noremap <down> <PageDown>
+noremap <left> :bp<CR>
+noremap <right> :bn<CR>
+noremap <up> <PageUp>
+:set expandtab
+:set shiftwidth=2
+:set tabstop=2

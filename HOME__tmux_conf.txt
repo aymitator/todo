@@ -1,0 +1,10 @@
+
+
+
+set -g pane-border-format "hidden"
+set -g pane-border-lines "number"
+set -g pane-border-status "off"
+set -g status "off"
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
