@@ -1,3 +1,6 @@
+#2022.8992121223
+for my $c (33 .. 122){ printf("%09d %s\n", $c, pack('C1', $c)); } #print ascii table; print ascii codes; ASCII = 33 .. 122
+
 #2022.8941263124
 $_ = 'abbbbbbbbbbbbbbbbbba'; print tr/a//; #2, count_characters_in_string_return_int64 assuming '$_' is a priori string [to search]: char_count($char); str_char_count($char); strchar_count($char); needles_in_haystack($char); ::::::::   Bash5: echo hello world | perl -ne 'print tr/aeiou//;exit 0' #3, is there a better way too count vowels in string with Bash 5?
 
