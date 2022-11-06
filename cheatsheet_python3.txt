@@ -1,4 +1,4 @@
-added 2022.9107419312:
+added 2022.9107419312, 2022.91412314123:
 #<PYTHON3_NUMBER>
 #float() [to do math expressions while maintaining maximum 17 digit accuracy], int() [to do math expressions] <--> str() [back and forth]
 #IOW: if you want 1*10^308 number accuracy use int/integer/int64/int()/int(str(int(str(int()))))
