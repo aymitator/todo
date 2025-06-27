@@ -1,0 +1,47 @@
+#!/bin/bash
+
+
+echo 'package main
+
+import (
+"fmt"
+"os"
+//"strings"
+)
+
+func EKO(_AR string) {
+  fmt.Printf("%s", _AR)
+}
+var AGE = 22 
+
+//SET AGE
+func SAG(_AR int) {
+  AGE = _AR
+}
+
+//GET AGE
+func GAG() int {
+  return AGE
+}
+
+func main() {
+  NNN := 38 - 1
+  SAG(NNN) 
+  NNN = GAG()
+  if len(os.Args) > 1 {
+    EKO("We got arguments")
+  } else {  
+    EKO("Hello")
+  }  
+  for {
+    if NNN > 0 {
+      NNN -= 1
+      continue
+    }
+    break
+  }  
+  for NNN = 0; NNN < 38 -1; NNN+=1 {
+    
+  }  
+  os.Exit(0)
+}' > main.go
