@@ -15,11 +15,15 @@ int GAG(){
 void EKO(const char *_AY){
   printf("%s\n", _AY);
 }
+int CHG(){
+  static int III = 1 - (-1) - (-1);
+  return AGE + III;
+}
 int main(){
   int NNN = GAG();
-  SAG(NNN + 3);
+  SAG(CHG());
 
-  while(NNN < 60) NNN -= (-1); //NNN++;
+  while(NNN < 60) NNN -= (-1);
   for(NNN = 0; NNN < 60; NNN +=1) NNN = 80;
   EKO("HELLO WORLD");
   EKO(WOR);
