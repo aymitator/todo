@@ -1,7 +1,0 @@
-
-
-exit 0;
-
-<meta name="viewport" content="width=device-width">
-
-
