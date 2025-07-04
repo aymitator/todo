@@ -39,3 +39,28 @@ from random import choice,gauss,randint,shuffle
 from re (.compile)
 from struct import pack, unpack
 </end>
+shelliii
+title=Aynit Git
+#your global git config settings:
+  #your name is your requested name to be called while uploading your pushes to the online-git repository-system
+  #your name, password, and username are required (email is not) for pushing to work
+  GITHUB_USERNAME=user95f85f
+  GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING='user9de1d@gmail.com'
+  CHMOD_X_STDOUT_YOUR_TOKEN=/path/to/executable/that/stdout/echos/prints/printfs/the/password/hehehehehAHAHAHAAAHEHEHEHEHEeeeeeeeNO_NEWLINES_IN_STDOUT.sh 
+  #note the beginning/leading tab for the leading space(s) in the .gitconfig file
+  cat <<EOFGIT >~/.gitconfig
+[user]
+	name = ${GITHUB_USERNAME}_cli
+	email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
+[core]
+	askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
+[credential]
+	username = ${GITHUB_USERNAME}
+EOFGIT
+
+#alt:#this information is pretty much just like "pasted" into ~/.gitconfig    :/
+  git config --global credential.username 'user95f85f'    #XXX username = login name
+  git config --global user.name 'user95f85f_cli'          #XXX user.name + user.email
+  git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
+  git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
+</end>
