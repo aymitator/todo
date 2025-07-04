@@ -1,0 +1,41 @@
+edom
+title=All subs
+All fxns(printf,undef,Data::Dumper)
+Array/List fxns (@ARGV,grep,join,map,pop,push,reverse,shift,sort,splice,qw//,unshift,List::Util=shuffle)
+Directory fxns (mkdir,closedir,opendir,readdir,rewinddir,seekdir,telldir)
+Exception fxns ($@[eval error])
+Filesystem fxns (<>,$/[$RS],chdir,chmod,Cwd,eof,File::Copy,glob,link,open,read,readlink,rename,rmdir,seek,select,stat,symlink,sysread,syswrite,sysseek,tell,umask,unlink)
+Hash fxns (delete,each,exists,keys,values)
+Library fxns (Exporter)
+Misc fxns (``,__FILE__,__LINE__,__PACKAGE__,caller,die,eval,sleep,system,warn)
+OOP fxns (bless)
+String fxns (chomp,chop,chr,index,lc,length,oct,ord,rindex,split,sprintf,substr,uc,ucfirst)
+Variable fxns (defined,ref,scalar)
+Math fxns (**,abs,hex,int,oct,rand,sqrt,Math::Trig=:pi[pi])
+</end>
+markmark
+title=Cell dimensions
+<meta name="viewport" content="width=device-width">
+</end>
+wyt
+title=All subs
+String fxns (in,not in)from str (.center,.count,.find,.index,.isdigit,.isalpha,
+  .join,len,.ljust,.lstrip,.rjust,.split)
+myarray = [1, 2, 3]
+mytuple = (1, 2, 3)
+myarray = list(mytuple)
+Array fxns (.append [.push],.clear,.copy,.count[.length],.extend,in[.find],.index,
+  .insert,list,not in,.pop,.remove,.reverse,.sort)
+  (use len(list) to get count/size of array)
+Dict/Hash fxns (.values,.keys,in,not in)
+mydict = { 1:'sup', 's':'a value' }
+Variable fxns (False [false],int,is,None [undef, null],range [`seq`],repr,str [float2string],True [true],type)
+Math fxns (**,pow,round)
+from float (.is_integer)
+from math import (ceil,degrees,*e,fabs,*pi,radians,sqrt)
+from os import unlink [`rm`],stat
+from platform as isx86_64 #isx86_64.machine() == 'x86_64'
+from random import choice,gauss,randint,shuffle
+from re (.compile)
+from struct import pack, unpack
+</end>
