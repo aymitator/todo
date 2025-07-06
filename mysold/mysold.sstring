@@ -1,4 +1,26 @@
 edom
+title=auto-auto glush standard out
+$|++;
+</end>
+edom
+title=nondir_get_contents
+sub WRL($_SZ) {
+  say $_SZ;
+}
+sub nondir_get_contents($_nondir_name) {
+  open(my ${NDR}, "< :raw", $_nondir_name) or return 0;
+  my $CON = "";
+  {
+    local $/;
+    $CON = <$NDR>;
+  }
+  close(${NDR});
+  return $CON;
+}
+my $CON = nondir_get_contents("C:\\mygames\\Untitled.txt");
+WRL(length($CON));
+</end>
+edom
 title=All subs
 All fxns(printf,undef,Data::Dumper)
 Array/List fxns (@ARGV,grep,join,map,pop,push,reverse,shift,sort,splice,qw//,unshift,List::Util=shuffle)
