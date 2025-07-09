@@ -44,14 +44,14 @@ title=All subs
 String fxns (in,not in)from str (.center,.count,.find,.index,.isdigit,.isalpha,
   .join,len,.ljust,.lstrip,.rjust,.split)
 myarray = [1, 2, 3]
-mytuple = (1, 2, 3)
-myarray = list(mytuple)
+mylist = (1, 2, 3)
+myarray = list(mylist)
 Array fxns (.append [.push],.clear,.copy,.count[.length],.extend,in[.find],.index,
   .insert,list,not in,.pop,.remove,.reverse,.sort)
   (use len(list) to get count/size of array)
 Dict/Hash fxns (.values,.keys,in,not in)
 mydict = { 1:'sup', 's':'a value' }
-Variable fxns (False [false],int,is,None [undef, null],range [`seq`],repr,str [float2string],True [true],type)
+Variable fxns (False [false],int,is,None [undef, null],range [`seq`],repr,str,True [true],type)
 Math fxns (**,pow,round)
 from float (.is_integer)
 from math import (ceil,degrees,*e,fabs,*pi,radians,sqrt)
@@ -80,9 +80,9 @@ title=Aynit Git
 	username = ${GITHUB_USERNAME}
 EOFGIT
 
-#alt:#this information is pretty much just like "pasted" into ~/.gitconfig    :/
-  git config --global credential.username 'user95f85f'    #XXX username = login name
-  git config --global user.name 'user95f85f_cli'          #XXX user.name + user.email
+#alt:#this information is pretty much just like "pasted" into ~/.gitconfig
+  git config --global credential.username 'user95f85f'
+  git config --global user.name 'user95f85f_cli'
   git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
-  git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
+  git config --global user.email 'user9de1d@gmail.com'
 </end>
