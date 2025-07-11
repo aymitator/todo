@@ -35,6 +35,35 @@ String fxns (chomp,chop,chr,index,lc,length,oct,ord,rindex,split,sprintf,substr,
 Variable fxns (defined,ref,scalar)
 Math fxns (**,abs,hex,int,oct,rand,sqrt,Math::Trig=:pi[pi])
 </end>
+edom
+title=Hash egg-beez on unday
+use v5.36.0;
+my %HAA = ( ONE => "WUHN",
+TWO => 0, 
+TRE => undef );
+if( exists($HAA{ONE}) ) {
+  say "ONE egg beez";
+}
+if( exists($HAA{TWO} ) ) {
+  say "TWO egg beez"; 
+}
+if( exists($HAA{TRE}) ) {
+  say "TRE egg beez";
+}
+</end>
+edom
+title=american-american regular-regular
+use v5.36.0;
+use re "/aa"; #ultra-American-charset-mode, \s, \w [a-zA-Z0-9_]
+no feature "unicode_strings"; #</might be unnecessary>
+$_ = "santa\tclaus\tjunior";
+/^(\w+)\s(\w+)\s(\w+)$/ and say join(" ", ucfirst($1), ucfirst($2), ucfirst($3)), " is awesome";
+</end>
+edom
+title=multi-match
+my @ALL = "12312111" =~ /(\d)/g;
+say scalar @ALL; #8
+</end>
 markmark
 title=Cell dimensions
 <meta name="viewport" content="width=device-width">
