@@ -65,6 +65,20 @@ my @ALL = "12312111" =~ /(\d)/g;
 say scalar @ALL; #8
 </end>
 markmark
+title=MarkMark beauty
+It's awesome to use iiiii tags as t'ey get used using liy und button-based toolkits alike
+header tag becomes begin
+non-header tag becomes aynd
+summary tag becomes talk
+details tag becomes more also cursor:,ointer
+article tag becomes myblock
+di, tag becomes myblockii
+, tag becomes myblockiii
+block,,uote becomes myblockiiii
+co,, becomes corc
+,re becomes corcii
+</end>
+markmark
 title=Cell dimensions
 <meta name="viewport" content="width=device-width">
 </end>
