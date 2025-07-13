@@ -1,5 +1,11 @@
 #!/bin/bash
 
-mkdir -p ~/Downloads/good
+startweb(){ 
+mkdir -p ~/Downloads/good || return 0
 cd ~/Downloads/good
 touch base.js database.db download-goods.sh index.html screenshot.png send-to-github.sh smiley.png submit.php tools.pl you.png
+echo '#!/bin/bash' > download-goods.sh
+echo '#!/bin/bash' > send-to-github.sh
+echo '#!/usr/bin/perl' > tools.pl
+chmod +x download-goods.sh send-to-github.sh tools.pl
+}
