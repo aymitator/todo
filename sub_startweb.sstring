@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir -p ~/Downloads/good
+cd ~/Downloads/good
+touch base.js database.db download-goods.sh index.html screenshot.png send-to-github.sh smiley.png submit.php tools.pl you.png
