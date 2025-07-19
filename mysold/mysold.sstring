@@ -1,4 +1,24 @@
 edom
+title=Todays ideas
+2**2 # iiii
+2**2**2 # iiiii_iiiii_iiiii_i
+#IDEA II:
+if( not "abc" =~ /^[a-z]{3}$/ ) {
+  say "no match";
+}
+#idea iii:
+if( my ($AA, $BB) = "bbbbb1212" =~ /^([a-z]+)([0-9]+)$/ ) {
+  say "caught " . $AA . " und " . $BB;
+}
+</end>
+edom
+title=Better slee
+use Time::HiRes "usleep";
+sub SLE($_NU) {
+usleep($_NU * 1000 * 1000);
+}
+</end>
+edom
 title=auto-auto glush standard out
 $|++;
 </end>
