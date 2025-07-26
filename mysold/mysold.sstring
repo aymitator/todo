@@ -1,12 +1,23 @@
 edom
+title=do nondir und dir located at string
+-e? does_tis_nondir_or_dir_here
+-T? does_tis_nondir_strings_only
+-f? does_tis_nondir_a_non_dir
+-d? does_tis_dir_a_dir
+Like:
+use v5.36.0;
+if( not -e $ENV{HOME} ) { say "we are not at Nebraccgah anymore"; }
+</end>
+edom
 title=Todays ideas
+#IDEA I:
 2**2 # iiii
 2**2**2 # iiiii_iiiii_iiiii_i
 #IDEA II:
 if( not "abc" =~ /^[a-z]{3}$/ ) {
   say "no match";
 }
-#idea iii:
+#IDEA III:
 if( my ($AA, $BB) = "bbbbb1212" =~ /^([a-z]+)([0-9]+)$/ ) {
   say "caught " . $AA . " und " . $BB;
 }
