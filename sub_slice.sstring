@@ -1,39 +1,24 @@
 slice(){
 echo "jobii jobiii markmark?"
-read sel 
-[[ $sel == "jobii" ]] && vim ~/Documents/main.java
-[[ $sel == "jobiii" ]] && vim ~/Documents/main.js
-[[ $sel == "markmark" ]] && vim ~/Documents/index.php
+read sel
 if [[ $sel != "" ]] ; then
   return 0
 fi
 
 echo "c-- c c----?"
 read sel
-[[ $sel == "c--" ]] && vim ~/Documents/main.cpp
-[[ $sel == "c" ]] && vim ~/Documents/main.c
-[[ $sel == "c----" ]] && vim ~/Documents/main.cs
 if [[ $sel != "" ]] ; then
   return 0
 fi
 
 echo "golang ruby edom?"
 read sel
-[[ $sel == "golang" ]] && vim ~/Documents/main.go
-[[ $sel == "ruby" ]] && vim ~/Documents/main.rb #rubO
-[[ $sel == "edom" ]] && vim ~/Documents/main.pl #edom.
 if [[ $sel != "" ]] ; then
   return 0
 fi
 
 echo "wyt bas make?"
 read sel
-[[ $sel == "wyt" ]] && vim ~/Documents/main.py #O
-[[ $sel == "bas" ]] && vim ~/Documents/main.bas
-[[ $sel == "make" ]] && vim ~/Documents/Makefile #O
-if [[ $sel != "" ]] ; then
-  return 0
-fi
 
 return 0
 
