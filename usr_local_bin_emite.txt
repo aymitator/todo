@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-#usr_local_bin_editr.sstring
+#usr_local_bin_emite.sstring
 #STRING EDITOR
 #UNLICENSE LICENSE
 #MADE BY szstr in 160 minutes
