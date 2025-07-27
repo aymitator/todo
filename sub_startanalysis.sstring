@@ -1,0 +1,9 @@
+#!/bin/bash
+
+startanalysis(){ 
+mkdir -p ~/Analysis || return 0
+cd ~/Analysis
+# make would run assess | tee log_log
+#   along translating log_log to html_html along datai,dataii,dataiii out-out
+touch datai dataii dataiii assess make html_html log_log
+}
