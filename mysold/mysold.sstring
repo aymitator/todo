@@ -1,4 +1,10 @@
 edom
+title=nonlowercase und lowercase names are nonsame contained
+my $aaa = 1;
+my $AAA = "ii";
+say $aaa; #1
+</end>
+edom
 title=do nondir und dir located at string
 -e? does_tis_nondir_or_dir_here
 -T? does_tis_nondir_strings_only
@@ -134,6 +140,11 @@ from platform as isx86_64 #isx86_64.machine() == 'x86_64'
 from random import choice,gauss,randint,shuffle
 from re (.compile)
 from struct import pack, unpack
+</end>
+shelliii
+title=make better isuals
+ong  
+egm
 </end>
 shelliii
 title=Aynit Git
