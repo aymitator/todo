@@ -1,3 +1,12 @@
+shelliii
+title=curl wget standard
+wget -O wget_out localhost
+curl --silent -o curl_out localhost
+</end>
+shelliii
+title=wget mirroring
+wget --accept "*.html" -e robots=off --relative --mirror http://localhost/diablo-2-tools/
+</end>
 edom
 title=nonlowercase und lowercase names are nonsame contained
 my $aaa = 1;
@@ -171,3 +180,4 @@ EOFGIT
   git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
   git config --global user.email 'user9de1d@gmail.com'
 </end>
+
