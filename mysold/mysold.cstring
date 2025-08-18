@@ -8,6 +8,17 @@ title=wget mirroring
 wget --accept "*.html" -e robots=off --relative --mirror http://localhost/diablo-2-tools/
 </end>
 edom
+title=boolean True(1/"1") or Better_Untrue("")
+our $UNE; #starts at undeh
+sub UTB {  #uneh to boolean
+  $UNE = !!$UNE;
+}
+UTB();
+if($UNE eq "") {
+  say "A kostiori yes, always";
+}
+</end>
+edom
 title=multi-lined cstring non-here-daw
 our $ctr = q { say "Hello";
 say "World"; };
@@ -186,5 +197,6 @@ EOFGIT
   git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
   git config --global user.email 'user9de1d@gmail.com'
 </end>
+
 
 
