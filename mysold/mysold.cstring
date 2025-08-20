@@ -8,6 +8,28 @@ title=wget mirroring
 wget --accept "*.html" -e robots=off --relative --mirror http://localhost/diablo-2-tools/
 </end>
 edom
+title=local_local also multi-make holders
+use v5.36.0;
+no feature "unicode_strings";
+=pod
+k
+$local_local no longer here
+6
+8
+8
+$local_local no longer here
+=cut
+my (@list, @listii, $james, $coast);          #<--
+@list = (0,1,2,3);
+@listii = (6,8,8);
+if(my $local_local = $list[0] =~ /([0-9])/) { #<--
+say "k";
+} say "\$local_local no longer here";
+foreach my $local_local (@listii) {           #<--
+say $local_local;
+} say "\$local_local no longer here";
+</end>
+edom
 title=boolean True(1/"1") or Better_Untrue("")
 our $UNE; #starts at undeh
 sub UTB {  #uneh to boolean
@@ -197,6 +219,7 @@ EOFGIT
   git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
   git config --global user.email 'user9de1d@gmail.com'
 </end>
+
 
 
 
