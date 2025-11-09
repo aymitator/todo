@@ -1,0 +1,6 @@
+
+PS1="> "
+alias weechat="/usr/bin/weechat -P alias,buflist,irc,logger"
+export EDITOR=/usr/bin/vim
+export WINEDEBUG=-all
+

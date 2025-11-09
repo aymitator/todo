@@ -1,0 +1,11 @@
+NO binaries! All string regular nondirectories
+
+Directory is 33K (< 63K)
+Directory (./) is 33K total, which is < 63K, which is awesome
+
+sudo apt install git
+cd ~/Downloads
+git clone https://github.com/aymitator/todo
+cd todo #enjoy
+#
+emite is my best mini editor

@@ -1,3 +1,4 @@
+#!/usr/bin/cat
 echo *-debs essential-1of3-debs/* essential-2of3-debs/* essential-3of3-debs/* | tr ' ' '\n'
 
 
