@@ -1,0 +1,174 @@
+#!/usr/bin/cat
+
+shelliii
+title=curl wget standard
+wget -O wget_out localhost
+curl --silent -o curl_out localhost
+</end>
+shelliii
+title=wget mirroring
+wget --accept "*.html" -e robots=off --relative --mirror http://localhost/diablo-2-tools/
+</end>
+edom
+title=multi-lined cstring non-here-daw
+our $ctr = q { say "Hello";
+say "World"; };
+eval $ctr;
+</end>
+edom
+title=nonlowercase und lowercase names are nonsame contained
+my $aaa = 1;
+my $AAA = "ii";
+say $aaa; #1
+</end>
+edom
+title=do nondir und dir located at string
+-e? does_tis_nondir_or_dir_here
+-T? does_tis_nondir_strings_only
+-f? does_tis_nondir_a_non_dir
+-d? does_tis_dir_a_dir
+Like:
+use v5.36.0;
+if( not -e $ENV{HOME} ) { say "we are not at Nebraccgah anymore"; }
+</end>
+edom
+title=Todays ideas
+#IDEA I:
+2**2 # iiii
+2**2**2 # iiiii_iiiii_iiiii_i
+#IDEA II:
+if( not "abc" =~ /^[a-z]{3}$/ ) {
+  say "no match";
+}
+#IDEA III:
+if( my ($AA, $BB) = "bbbbb1212" =~ /^([a-z]+)([0-9]+)$/ ) {
+  say "caught " . $AA . " und " . $BB;
+}
+</end>
+edom
+title=Better slee
+use Time::HiRes "usleep";
+sub SLE($_NU) {
+usleep($_NU * 1000 * 1000);
+}
+</end>
+edom
+title=auto-auto glush standard out
+$|++;
+</end>
+edom
+title=nondir_get_contents
+sub WRL($_SZ) {
+  say $_SZ;
+}
+sub nondir_get_contents($_nondir_name) {
+  open(my ${NDR}, "< :raw", $_nondir_name) or return 0;
+  binmode(${NDR});
+  my $CON = "";
+  {
+    local $/;
+    $CON = <$NDR>;
+  }
+  close(${NDR});
+  return $CON;
+}
+my $CON = nondir_get_contents("C:\\mygames\\Untitled.txt");
+WRL(length($CON));
+</end>
+edom
+title=All subs
+All fxns(printf,undef,Data::Dumper)
+Array/List fxns (@ARGV,grep,join,map,pop,push,reverse,shift,sort,splice,qw//,unshift,List::Util=shuffle)
+Directory fxns (mkdir,closedir,opendir,readdir,rewinddir,seekdir,telldir)
+Exception fxns ($@[eval error])
+Filesystem fxns (<>,$/[$RS],chdir,chmod,Cwd,eof,File::Copy,glob,link,open,read,readlink,rename,rmdir,seek,select,stat,symlink,sysread,syswrite,sysseek,tell,umask,unlink)
+Hash fxns (delete,each,exists,keys,values)
+Library fxns (Exporter)
+Misc fxns (``,__FILE__,__LINE__,__PACKAGE__,caller,die,eval,sleep,system,warn)
+OOP fxns (bless)
+String fxns (chomp,chop,chr,index,lc,length,oct,ord,rindex,split,sprintf,substr,uc,ucfirst)
+Variable fxns (defined,ref,scalar)
+Math fxns (**,abs,hex,int,oct,rand,sqrt,Math::Trig=:pi[pi])
+</end>
+edom
+title=Hash egg-beez on unday
+use v5.36.0;
+my %HAA = ( ONE => "WUHN",
+TWO => 0, 
+TRE => undef );
+if( exists($HAA{ONE}) ) {
+  say "ONE egg beez";
+}
+if( exists($HAA{TWO} ) ) {
+  say "TWO egg beez"; 
+}
+if( exists($HAA{TRE}) ) {
+  say "TRE egg beez";
+}
+</end>
+edom
+title=american-american regular-regular
+use v5.36.0;
+use re "/aa"; #ultra-American-charset-mode, \s, \w [a-zA-Z0-9_]
+no feature "unicode_strings"; #</might be unnecessary>
+$_ = "santa\tclaus\tjunior";
+/^(\w+)\s(\w+)\s(\w+)$/ and say join(" ", ucfirst($1), ucfirst($2), ucfirst($3)), " is awesome";
+</end>
+edom
+title=multi-match
+my @ALL = "12312111" =~ /(\d)/g;
+say scalar @ALL; #8
+</end>
+markmark
+title=Cell dimensions
+<meta name="viewport" content="width=device-width">
+</end>
+wyt
+title=All subs
+String fxns (in,not in)from str (.center,.count,.find,.index,.isdigit,.isalpha,
+  .join,len,.ljust,.lstrip,.rjust,.split)
+myarray = [1, 2, 3]
+mylist = (1, 2, 3)
+myarray = list(mylist)
+Array fxns (.append [.push],.clear,.copy,.count[.length],.extend,in[.find],.index,
+  .insert,list,not in,.pop,.remove,.reverse,.sort)
+  (use len(list) to get count/size of array)
+Dict/Hash fxns (.values,.keys,in,not in)
+mydict = { 1:'sup', 's':'a value' }
+Variable fxns (False [false],int,is,None [undef, null],range [`seq`],repr,str,True [true],type)
+Math fxns (**,pow,round)
+from float (.is_integer)
+from math import (ceil,degrees,*e,fabs,*pi,radians,sqrt)
+from os import unlink [`rm`],stat
+from platform as isx86_64 #isx86_64.machine() == 'x86_64'
+from random import choice,gauss,randint,shuffle
+from re (.compile)
+from struct import pack, unpack
+</end>
+shelliii
+title=Aynit Git
+#your global git config settings:
+  #your name is your requested name to be called while uploading your pushes to the online-git repository-system
+  #your name, password, and username are required (email is not) for pushing to work
+  GITHUB_USERNAME=user95f85f
+  GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING='user9de1d@gmail.com'
+  CHMOD_X_STDOUT_YOUR_TOKEN=/path/to/executable/that/stdout/echos/prints/printfs/the/password/hehehehehAHAHAHAAAHEHEHEHEHEeeeeeeeNO_NEWLINES_IN_STDOUT.sh 
+  #note the beginning/leading tab for the leading space(s) in the .gitconfig file
+  cat <<EOFGIT >~/.gitconfig
+[user]
+	name = ${GITHUB_USERNAME}_cli
+	email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
+[core]
+	askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
+[credential]
+	username = ${GITHUB_USERNAME}
+EOFGIT
+
+#alt:#this information is pretty much just like "pasted" into ~/.gitconfig
+  git config --global credential.username 'user95f85f'
+  git config --global user.name 'user95f85f_cli'
+  git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
+  git config --global user.email 'user9de1d@gmail.com'
+</end>
+
+
