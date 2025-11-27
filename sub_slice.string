@@ -1,24 +1,21 @@
 slice(){
-echo "jobii jobiii markmark?"
+echo "Target Web browsers? HHH? Client-location? "
+read sel
+if [[ $sel != "" ]]; then
+  return 0;
+fi
+
+echo "Target button world? swing? netbeans?"
+read sel
+if [[ $sel != "" ]]; then
+  return 0
+fi
+
+echo "gems? modules? module-modules?"
 read sel
 if [[ $sel != "" ]] ; then
   return 0
 fi
-
-echo "c-- c c----?"
-read sel
-if [[ $sel != "" ]] ; then
-  return 0
-fi
-
-echo "golang ruby edom?"
-read sel
-if [[ $sel != "" ]] ; then
-  return 0
-fi
-
-echo "wyt bas make?"
-read sel
 
 return 0
 
