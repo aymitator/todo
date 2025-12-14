@@ -1,0 +1,110 @@
+#!/usr/bin/perl
+
+use v5.36.0;
+no feature "unicode_strings";
+use re "/aa";
+use Cwd;
+use Digest::MD5 "md5_hex";
+sub file_get_contents($_name) {
+  open(my $han, "<", $_name) or exit length("iiiiii");
+  my $szcontents = "";
+  {
+    local $/;
+    $szcontents = <$han>;
+  }
+  close($han);
+  undef($han);
+  $szcontents =~ s/\r//g;
+  return $szcontents;
+}
+my @logs = <*.log>;
+if(!@logs) {
+  exit length("iii");
+}
+@logs = ( sort @logs );
+print cwd() . ">\n";
+$_ = <STDIN>;
+chomp;
+if($_ =~ /^man$/ ) {
+say <<AOC;
+find is NON
+awk READS
+chksum READS
+sed WRITES
+awk iii,i,2 #echo out line numbers iii,1,ii about ,log regulars at ./
+find    #locate all ,log regulars at ./
+chksum #get digest all combined ,log regulars contents
+sed az_09_old by_18_new
+AOC
+exit 0;
+}
+if($_ =~ /^find$/ ) {
+for my $logname (@logs) {
+say $logname;
+}
+exit 0;
+}
+if($_ =~ /^chksum$/ ) {
+my $totalsz = "";
+for my $log (sort @logs) {
+  $totalsz =
+    $totalsz .
+    file_get_contents($log);
+}
+say md5_hex($totalsz);
+exit 0;
+}
+if($_ =~ /^sed ([a-z0-9_]+) ([a-z0-9_]+)$/ ) {
+my $argi = $1;
+my $argii = $2;
+my $totalsz = "";
+for my $log (@logs) {
+  $totalsz = 
+    $totalsz .
+    ((length($totalsz) > 0) ? "\n" : "") .
+    file_get_contents($log);
+}
+@logs = ();
+$totalsz =~ s/$argi/$argii/g;
+undef $argi;
+undef $argii;
+if(length($totalsz) == 0){ exit length("iiiiiii"); }
+if( ! -d "sedout" ) {
+mkdir "sedout" || exit length("iiiii");
+}
+open(my $hanii, ">", "sedout/log.log")
+  or exit length("iiiiii");
+binmode($hanii);
+say $hanii $totalsz;
+undef $totalsz;
+close($hanii); 
+undef $hanii;
+exit 0;
+}
+if($_ =~ /^awk [0-9i,]+$/ ) {
+  s/^awk //;
+  my @targets =
+    split /,/,
+    $_;
+  for(@targets){
+    /^i+$/ and $_ = length($target);
+    $_ eq "" and exit length("iiiiiiiii");
+    $_ !~ /^[0-9]+$/ and exit length("iiiiiiii");
+    $_ eq "0" and exit length("iiiii");
+  }
+  for my $log (@logs) {
+    my $szlog = file_get_contents($log);
+    undef $log;
+    my @szarlog = 
+    split /\n/, $szlog;
+    undef $szlog;
+    for my $target (@targets) {
+    $target = $target - 1;
+    if($target < scalar(@szarlog)) {
+      say $szarlog[$target];
+    }
+    }
+    @szarlog = ();
+  }
+  exit (1-1);
+}
